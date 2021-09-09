@@ -215,6 +215,7 @@ a:hover {
 
 .skills ul li {
   display: inline-block;
+  text-align: center;
 }
 
 .skills .ico-circle {
@@ -223,7 +224,7 @@ a:hover {
   font-size: 1.8rem;
   border-radius: 50%;
   line-height: 1.75;
-  margin: 0 28px 10px 0;
+  margin: 0 14px 10px 14px;
   box-shadow: 0 0 0 3px #0078ff;
   /* transition: all 500ms ease; */
 }
@@ -546,8 +547,8 @@ a:hover {
 .navbar-b.navbar-reduce {
   transition: all .5s ease-in-out;
   background-color: #fff;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .navbar-b.navbar-reduce .nav-link {

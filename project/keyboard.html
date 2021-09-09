@@ -36,7 +36,7 @@
   <!-- ======= Header/ Navbar ======= -->
   <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll" href="#page-top">Ahmad Ibnu</a>
+      <a class="navbar-brand js-scroll" href="#page-top">Ahmad Ibnu Setiadi</a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span></span>
         <span></span>
@@ -48,7 +48,7 @@
             <a class="nav-link js-scroll" href="../index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll" href="../#about">About</a>
+            <a class="nav-link js-scroll" href="../index.html#about">About</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link js-scroll" href="#service">Services</a>
@@ -96,9 +96,10 @@
         <div class="portfolio-details-container">
 
           <div class="owl-carousel portfolio-details-carousel">
-            <img src="../assets/img/portfolio-details-1.jpg" class="img-fluid" alt="">
-            <img src="../assets/img/portfolio-details-2.jpg" class="img-fluid" alt="">
-            <img src="../assets/img/portfolio-details-3.jpg" class="img-fluid" alt="">
+            <img src="../assets/img/keyboard/IMG_20190909_224209.jpg" class="img-fluid" alt="">
+            <img src="../assets/img/keyboard/IMG_20190909_224327.jpg" class="img-fluid" alt="">
+            <img src="../assets/img/keyboard/IMG_20190911_221914.jpg" class="img-fluid" alt="">
+            <img src="../assets/img/keyboard/IMG_20190921_214831.jpg" class="img-fluid" alt="">
           </div>
 
           <div class="portfolio-info">
@@ -154,15 +155,96 @@
           <p>
             65% keybord means it doesn't have numpad key, and no function key. In total it need 68 switches, instead of 104 swithes
             on full size keyboard.
+          </p>
+          <p>
+            Of course ATMega32u4 doesn't have 68 GPIO for all switches, thats why all switches need to be design in matrix format.
+            (eg. 5 rows x 5 columns) Allowing to use minimum pin as possible for many switches. I found out about using matrix in keyboard in this 
+            <a href="http://blog.komar.be/how-to-make-a-keyboard-the-matrix/" target="_blank">article</a>. For this case I need to make it 5 rows x 
+            16 columns. I can make it even more compact, but for easy PCB routing I will make it like this. With additional led pin and backlight,
+            I need 25 pins. Exactly the maximum GPIO ATMega32u4 has.
+          </p>
+          <!-- picture here schematic -->
+          <div class="col-md-12 text-center">
+            <img src="../assets/img/keyboard/schematic 2.png" style="width:80%" alt="casing">
+            <div class="caption">
+              <p>I manage to use all pin on ATMega32u4</p>
+            </div>
+          </div>
+          <p>
+            Once the scematic is done, now begin the fun part wich is routing the PCB. The key to PCB design is to take time for each signal route.
+            And once its done, it will look like a professional looking PCB. In the process of designing this keyboard took me around 1 week or more,
+            because I don't want to make any mistake and send the PCB back to manufacture.
+          </p>
+          <p>
+            And yes there is one mayor mistake that I make. I accidentaly assign the wrong pinout for MOSI pin on ATMega32u4 for programming. But,
+            nothing to worried, the MOSI pin still accessable.
+          </p>
+          <!-- picture here pcb routing -->
+          <div class="col-md-12 text-center">
+            <img src="../assets/img/keyboard/board 1.png" style="width:80%" alt="casing">
+            <div class="caption">
+              <p>red is top layer and blue is bottom layer</p>
+            </div>
+          </div>
+          <p>
+            I send the design to JLCPCB to manufacture. I choose blue silkscreen because I like blue, that's it. Once I got the PCB I start to 
+            placing component, starting with the chip it self and the switches are the last one to solder.
+          </p>
+          <div class="col-md-12 text-center">
+            <img src="../assets/img/keyboard/IMG_20190909_224327.jpg" style="width:80%" alt="casing">
+            <div class="caption">
+              <p>having fun soldering all this components</p>
+            </div>
+          </div>
           <h2>
             Software
           </h2>
+          <p>
+            Luckily, QMK firmware has already doing all the work for software side. It already support all kind of keyboard configuration and 
+            has a great documentation on <a href="https://docs.qmk.fm/#/" target="_blank">docs.qmk.fm</a>. And with the help of qmk firmware builder,
+            there almost nothing to change on the firmware. Of course I added some additional functionality like, tap dance and overcomplicated the 
+            layer thing.
+          </p>
+          <p>
+            This is some of the code snippet for my keyboard. For more detail are in my github page.
+          </p>
+          <!-- picture here coding -->
+          <div class="col-md-12 text-center">
+            <img src="../assets/img/keyboard/program.png" style="width:80%" alt="casing">
+            <div class="caption">
+              <p>my keyboard layer</p>
+            </div>
+          </div>
           <h2>
             Assembly
           </h2>
+          <p>
+            I choose acrylic for the case because it looks cool and it's cheaper than using allumunium or plastic case. And I want to build it myself
+            too. I choose 3mm thick acrylic for top and bottom case, and for filler I choose 2x5mm acrylic then I decided to use only 5mm acrylic
+            because it was too thick. The problem here I think the top acrylic was too thick, some of the stabilizer doesn't work properly.
+          </p>
+          <div class="col-md-12 text-center">
+            <img src="../assets/img/keyboard/IMG_20190921_214831.jpg" style="width:80%" alt="casing">
+            <div class="caption">
+              <p>acrylic casing before I peeled the protective cover</p>
+            </div>
+          </div>
+          <p>
+            After soldering all of the components and compiling the firmware, I flashed the firmware 
+            onto the board over USB using dfu-programmer. To my surprise, everything worked on first 
+            try! Typing on it was a lot of fun and I was pretty happy with the  results. Though I probably won’t be using 
+            this as my daily driver, I definitely learned a lot about PCB design and embedded development.
+          </p>
           <h2>
             Future Development
           </h2>
+          <p>
+            For future design, probably I will make it more variety for the sizes. I know that I can make it full size keyboard using ATMega32u4.
+            Or make it even smaller like 60% keyboard. And probably adding some functionality like rotary encoder or OLED screen.
+          </p>
+          <p>
+            But, the one improvement that I want to make is to make it wireless using bluetooth.
+          </p>
         </div>
       </div>
     </section><!-- End Portfolio Details Section -->
@@ -178,52 +260,6 @@
           <div class="contact-mf">
             <div id="contact" class="box-shadow-full">
               <div class="row">
-                <div class="col-md-6">
-                  <div class="title-box-2">
-                    <h5 class="title-left">
-                      Send Me a Message
-                    </h5>
-                  </div>
-                  <div>
-                    <form action="../forms/contact.php" method="post" role="form" class="php-email-form">
-                      <div class="row">
-                        <div class="col-md-12 mb-3">
-                          <div class="form-group">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                            <div class="validate"></div>
-                          </div>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                          <div class="form-group">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter your valid email" />
-                            <div class="validate"></div>
-                          </div>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                          <div class="form-group">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-                            <div class="validate"></div>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for me" placeholder="Message"></textarea>
-                            <div class="validate"></div>
-                          </div>
-                        </div>
-                        <div class="col-md-12 text-center mb-3">
-                          <div class="loading">Loading</div>
-                          <div class="error-message"></div>
-                          <div class="sent-message">Your message has been sent. Thank you!</div>
-                        </div>
-                        <div class="col-md-12 text-center">
-                          <button type="submit" class="button button-a button-big button-rouded">Send Message</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                <div class="col-md-6">
                   <div class="title-box-2 pt-4 pt-md-0">
                     <h5 class="title-left">
                       Get in Touch
@@ -249,7 +285,6 @@
                       <li><a href="https://twitter.com/mynameisibnu" target="_blank"><span class="ico-circle"><i class="ion-social-twitter"></i></span></a></li>
                     </ul>
                   </div>
-                </div>
               </div>
             </div>
           </div>
